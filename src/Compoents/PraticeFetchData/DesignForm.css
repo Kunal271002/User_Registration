@@ -1,0 +1,19 @@
+h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+    color:cadetblue !important
+}
+.background_registraction{
+    background-color: rgb(68, 159, 159);
+}
+.CardShadowForm{
+    box-shadow: 1px 1px 5px 1px grey;
+    border-radius: 20px;
+    
+}
+.Registration_padding{
+    padding: 10px;
+}
+h5{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+    
+}
