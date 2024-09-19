@@ -1,12 +1,13 @@
-import React from "react";
-import { Card, Input } from "antd";
-import { Button, Flex, Form } from "antd";
-import { FormProps } from "antd";
-import Password from "antd/es/input/Password";
+import React, { useEffect } from "react";
+import { Input } from "antd";
+import { Form } from "antd";
 import { useState } from "react";
 import axios from "axios";
 import "../PraticeFetchData/DesignForm.css";
 import logo from "../../Assets/490748-PH5A0U-472.jpg";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+
 function DesignForm() {
   const [userGuiId, setuserGuiId] = useState("");
   const [firstName, setfirstName] = useState("");
@@ -18,9 +19,10 @@ function DesignForm() {
   const [password, setpassword] = useState("");
   const [authenticationType, setauthenticationType] = useState(0);
   const [defaultRoleID, setdefaultRoleID] = useState("");
+  const navigate = useNavigate()
+
   const handlesubmit = async (event) => {
     event.preventDefault();
-
     try {
       const response = await axios.post(
         "https://localhost:44371/api/User/AddUserMaster",
@@ -38,11 +40,28 @@ function DesignForm() {
           defaultRoleID,
         }
       );
-      console.log(response);
+      if (response.data.message == "Successful") {
+       
+        Swal.fire({
+          icon: "success",
+          title: "User Resistered",
+          text: "Sucessful",
+        });
+        navigate('/CrudTable')
+      }
     } catch (error) {
       alert(error);
     }
   };
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      try {
+        const response = await axios.get("");
+      } catch (error) {}
+    };
+  }, []);
+
   return (
     <div>
       <div>

@@ -102,6 +102,7 @@ const CrudTable = () => {
         { id: Deleteid }
       );
       alert(response.data.message);
+      
       window.location.reload();
     } catch (error) {
       console.log(error);

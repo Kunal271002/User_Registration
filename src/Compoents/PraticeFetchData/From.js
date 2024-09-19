@@ -21,26 +21,32 @@ function From() {
     event.preventDefault();
 
     try {
-        const response = await axios.post("https://localhost:44371/api/User/AddUserMaster", {
-            userGuiId,
-            firstName,
-            lastName,
-            emailId,
-            loginId,
-            userGuiId,
-            usertype,
-            status,
-            password,
-            authenticationType,
-            defaultRoleID,
-          });
-          console.log(response);
-          
-        
+      const response = await axios.post(
+        "https://localhost:44371/api/User/AddUserMaster",
+        {
+          userGuiId,
+          firstName,
+          lastName,
+          emailId,
+          loginId,
+          userGuiId,
+          usertype,
+          status,
+          password,
+          authenticationType,
+          defaultRoleID,
+        }
+      );
+      console.log(response)
+    //   if (response.data.message == "Successful") {
+    //     alert("Successful");
+    //     window.location.reload();
+    //   }
+
     } catch (error) {
-        alert(error)
+      alert(error);
     }
-  }
+  };
   return (
     <div className="container my-3">
       <h3>Submit User Details</h3>
