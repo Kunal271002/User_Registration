@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, Button, Drawer, Space, Table } from "antd";
 import axios from "axios";
-import UpdateForm from "../CrudTable/UpdateForm";
+import { Link } from "react-router-dom";
 import AddForm from "../CrudTable/AddForm";
+import { useNavigate } from "react-router-dom";
 import "../CrudTable/CrudTable.css";
+import Details from "./Details";
 
 const CrudTable = () => {
   const columns = [
@@ -29,11 +31,6 @@ const CrudTable = () => {
       dataIndex: "address",
       key: "address",
     },
-    {
-      title: "Is Active",
-      dataIndex: "isactive",
-      key: "isactive",
-    },
 
     {
       title: "Action",
@@ -44,13 +41,7 @@ const CrudTable = () => {
             className="btn btn-success mx-3"
             onClick={() => showUpdateDrawer(record)}
           >
-            Update
-          </button>
-          <button
-            className="btn btn-danger"
-            onClick={() => handleDelete(record.id)}
-          >
-            Delete
+            <Link to={`/Details/${record.id}`}>Details</Link>
           </button>
         </div>
       ),
@@ -61,13 +52,16 @@ const CrudTable = () => {
   const [addDrawerOpen, setAddDrawerOpen] = useState(false);
   const [updateDrawerOpen, setUpdateDrawerOpen] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
-
+  const [id, newId] = useState();
+  const navigate = useNavigate();
   const showAddDrawer = () => {
     setAddDrawerOpen(true);
   };
   const showUpdateDrawer = (record) => {
     setSelectedRecord(record); // Store the selected record for update
-    setUpdateDrawerOpen(true);
+
+    console.log(id);
+    newId(record.id);
   };
 
   const closeAddDrawer = () => {
@@ -76,7 +70,7 @@ const CrudTable = () => {
 
   const closeUpdateDrawer = () => {
     setUpdateDrawerOpen(false);
-    setSelectedRecord(null); // Clear the selected record after closing the drawer
+    setSelectedRecord(null);
   };
 
   useEffect(() => {
@@ -85,8 +79,8 @@ const CrudTable = () => {
         const response = await axios.get(
           "https://localhost:44371/api/Students/GetAllStudents"
         );
+   
         setApiData(response.data.data);
-        
       } catch (error) {
         console.warn(error);
       }
@@ -94,20 +88,6 @@ const CrudTable = () => {
 
     fetchData();
   }, []);
-
-  const handleDelete = async (Deleteid) => {
-    try {
-      const response = await axios.post(
-        "https://localhost:44371/api/Students/DeleteByID",
-        { id: Deleteid }
-      );
-      alert(response.data.message);
-      
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div className="container">
@@ -117,14 +97,6 @@ const CrudTable = () => {
       </Drawer>
 
       {/* Update Drawer */}
-      <Drawer
-        title="Update Form"
-        onClose={closeUpdateDrawer}
-        open={updateDrawerOpen}
-      >
-        <UpdateForm record={selectedRecord} />
-      </Drawer>
-
       <Button type="primary my-3" onClick={showAddDrawer}>
         Add
       </Button>

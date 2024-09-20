@@ -12,7 +12,7 @@ const AddForm = () => {
     email: "",
     age: "",
     address: "",
-    isactive:""
+   
   });
 
   const handleChange = (event) => {

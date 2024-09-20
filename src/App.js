@@ -1,11 +1,8 @@
-import logo from "./logo.svg";
 import "./App.css";
-import CrudTable from "./Compoents/CrudTable/CrudTable";
-import AddForm from "./Compoents/CrudTable/AddForm";
-import Practice from "./Compoents/PraticeFetchData/Practice";
-import Form from "../src/Compoents/PraticeFetchData/From";
 import DesignForm from "./Compoents/PraticeFetchData/DesignForm";
+import Details from "./Compoents/CrudTable/Details";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CrudTable from "./Compoents/CrudTable/CrudTable";
 
 function App() {
   return (
@@ -14,6 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<DesignForm />} />
           <Route path="/CrudTable" element={<CrudTable />} />
+          <Route path="/Details/:id" element={<Details />} />
         </Routes>
       </Router>
       
